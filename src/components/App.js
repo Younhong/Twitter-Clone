@@ -5,16 +5,18 @@ import { authService } from '../firebaseInstance';
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
-  
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {
+      if (user) {        
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args)
         });
-      }
+      } else {
+        setUserObj(null);
+      };
       setInit(true);
     })
   }, []);
@@ -25,7 +27,7 @@ function App() {
       uid: user.uid,
       updateProfile: (args) => user.updateProfile(args)
     });
-  }
+  };
   return (
     <>
       {init 

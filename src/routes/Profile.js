@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 export default ({userObj, refreshUser}) => {
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const history = useHistory();
-    const onLogoutClick = () => {
+    const onLogOutClick = () => {
         authService.signOut();
         history.push("/");
     };
@@ -29,20 +29,35 @@ export default ({userObj, refreshUser}) => {
             await userObj.updateProfile({
                 displayName: newDisplayName
             });
-            refreshUser();
+            refreshUser()
         }
     };
     useEffect(()=> {
         getMyNweet();
     }, []);
-    return <>
-        <form onSubmit={onSubmit}>
-            <input type="text"
-                value={newDisplayName}
-                onChange={onChange}
-                placeholder="Display Name" />
-            <input type="submit" value="Update Profile" />
-        </form>
-        <button onClick={onLogoutClick}>Log Out</button>
-    </>
+    return (
+        <div className="container">
+          <form onSubmit={onSubmit} className="profileForm">
+            <input
+              onChange={onChange}
+              type="text"
+              autoFocus
+              placeholder="Display name"
+              value={newDisplayName}
+              className="formInput"
+            />
+            <input
+              type="submit"
+              value="Update Profile"
+              className="formBtn"
+              style={{
+                marginTop: 10,
+              }}
+            />
+          </form>
+          <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+            Log Out
+          </span>
+        </div>
+      );
 };
