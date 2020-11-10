@@ -29,7 +29,7 @@ export default ({userObj, refreshUser}) => {
             await userObj.updateProfile({
                 displayName: newDisplayName
             });
-            refreshUser()
+            refreshUser();
         }
     };
     useEffect(()=> {
